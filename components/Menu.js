@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Animated, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MenuItem from "./MenuItem";
+import { useSelector, useDispatch } from "react-redux";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -33,16 +34,29 @@ const Menu = () => {
   // declaring new state variable.
   const menuTop = useRef(new Animated.Value(screenHeight)).current;
 
+  const action = useSelector((state) => state.action);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    Animated.spring(menuTop, {
-      toValue: 0,
-    }).start();
-  }, []);
+    toggleMenu();
+  });
 
   const toggleMenu = () => {
-    Animated.spring(menuTop, {
-      toValue: screenHeight,
-    }).start();
+    if (action == "openMenu") {
+      Animated.spring(menuTop, {
+        toValue: 54,
+      }).start();
+    }
+
+    if (action == "closeMenu") {
+      Animated.spring(menuTop, {
+        toValue: screenHeight,
+      }).start();
+    }
+  };
+
+  const closeMenu = () => {
+    dispatch({ type: "CLOSE_MENU" });
   };
 
   return (
@@ -53,7 +67,7 @@ const Menu = () => {
         <Subtitle>kouamendri1@gmail.com</Subtitle>
       </Cover>
       <TouchableOpacity
-        onPress={toggleMenu}
+        onPress={closeMenu}
         style={{
           position: "absolute",
           top: 120,
@@ -99,6 +113,8 @@ const Container = styled.View`
   height: 100%;
   width: 100%;
   z-index: 100;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
