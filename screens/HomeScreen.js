@@ -13,6 +13,7 @@ import Course from "../components/Course";
 import { NotificationIcon } from "../components/Icons";
 import Logo from "../components/Logo";
 import Menu from "../components/Menu";
+import Avatar from "../components/Avatar";
 import { useSelector, useDispatch } from "react-redux";
 
 const HomeScreen = () => {
@@ -114,7 +115,9 @@ const HomeScreen = () => {
     },
   ];
 
-  const action = useSelector((state) => state.action);
+  const action = useSelector((state) => {
+    return { action: state.action, name: state.name };
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -169,10 +172,10 @@ const HomeScreen = () => {
                 onPress={openMenu}
                 style={{ position: "absolute", top: 0, left: 0 }}
               >
-                <Avatar source={require("../assets/avatar.jpg")} />
+                <Avatar />
               </TouchableOpacity>
               <Title>Welcome back,</Title>
-              <Name>Kouame</Name>
+              <Name>{action.name}</Name>
               <NotificationIcon
                 style={{ position: "absolute", right: 20, top: 5 }}
               />
@@ -241,14 +244,6 @@ const Subtitle = styled.Text`
   margin-left: 20px;
   margin-top: 20px;
   text-transform: uppercase;
-`;
-
-const Avatar = styled.Image`
-  width: 44px;
-  height: 44px;
-  background: black;
-  border-radius: 22px;
-  margin-left: 20px;
 `;
 
 const Container = styled.View`
