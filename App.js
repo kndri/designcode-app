@@ -1,7 +1,8 @@
 import React from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import HomeScreen from "./screens/HomeScreen";
+import RootStack from "./navigator/AppNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 const initialState = {
   action: "closeMenu",
@@ -28,7 +29,9 @@ const store = createStore(reducuer);
 
 const App = () => (
   <Provider store={store}>
-    <HomeScreen />
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   </Provider>
 );
 

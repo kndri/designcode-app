@@ -16,7 +16,7 @@ import Menu from "../components/Menu";
 import Avatar from "../components/Avatar";
 import { useSelector, useDispatch } from "react-redux";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const logos = [
     {
       image: require("../assets/logo-framerx.png"),
@@ -115,6 +115,8 @@ const HomeScreen = () => {
     },
   ];
 
+  // const navigation = useNavigation();
+
   const action = useSelector((state) => {
     return { action: state.action, name: state.name };
   });
@@ -200,14 +202,21 @@ const HomeScreen = () => {
               showsHorizontalScrollIndicator={false}
             >
               {cards.map((card, index) => (
-                <Card
+                <TouchableOpacity
                   key={index}
-                  title={card.title}
-                  image={card.image}
-                  subtitle={card.subtitle}
-                  caption={card.caption}
-                  logo={card.logo}
-                />
+                  onPress={() => {
+                    navigation.push("Section");
+                  }}
+                >
+                  <Card
+                    key={index}
+                    title={card.title}
+                    image={card.image}
+                    subtitle={card.subtitle}
+                    caption={card.caption}
+                    logo={card.logo}
+                  />
+                </TouchableOpacity>
               ))}
             </ScrollView>
             <Subtitle>Popular Courses</Subtitle>
