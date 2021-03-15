@@ -205,7 +205,9 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity
                   key={index}
                   onPress={() => {
-                    navigation.push("Section");
+                    navigation.push("Section", {
+                      section: card,
+                    });
                   }}
                 >
                   <Card
